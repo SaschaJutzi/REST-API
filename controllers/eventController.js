@@ -24,10 +24,20 @@ const handleErrors = (err) => {
   return errors;
 };
 
-// listAction, createAction, updateAction and deleteAction
+// listAction, detailAction, createAction, updateAction and deleteAction
 
 const listAction = (req, res) => {
   Event.find({})
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.status(422).send({ error: err.message });
+    });
+};
+
+const detailAction = (req, res) => {
+  Event.findById({ _id: req.params.id })
     .then((result) => {
       res.json(result);
     })
@@ -91,6 +101,7 @@ const deleteAction = (req, res) => {
 
 module.exports = {
   listAction,
+  detailAction,
   createAction,
   updateAction,
   deleteAction,
