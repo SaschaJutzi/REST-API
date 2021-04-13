@@ -6,6 +6,9 @@ const router = Router();
 // get a list of events from the db
 router.get('/events', eventController.listAction);
 
+// get Details of one event from the db
+router.get('/events/:id', eventController.detailAction);
+
 // add a new event to the db
 router.post('/events', eventController.createAction);
 
