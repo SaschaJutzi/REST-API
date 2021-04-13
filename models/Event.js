@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 // create event Schema & model
 const eventSchema = new mongoose.Schema({
@@ -35,6 +36,8 @@ const eventSchema = new mongoose.Schema({
     required: [true, 'Please enter an organizer'],
   },
 });
+
+eventSchema.plugin(mongoosePaginate);
 
 const Event = mongoose.model('event', eventSchema);
 

@@ -26,14 +26,18 @@ const handleErrors = (err) => {
 
 // listAction, detailAction, createAction, updateAction and deleteAction
 
-const listAction = (req, res) => {
-  Event.find({})
-    .then((result) => {
-      res.json(result);
-    })
-    .catch((err) => {
-      res.status(422).send({ error: err.message });
-    });
+const listAction = async (req, res) => {
+  try {
+    const { page, limit } = req.query;
+    const options = {
+      page: parseInt(page, 10) || 1,
+      limit: parseInt(limit, 10) || 10,
+    };
+    const events = await Event.paginate({}, options);
+    res.status(201).json(events);
+  } catch (err) {
+    res.status(422).send({ error: err.message });
+  }
 };
 
 const detailAction = (req, res) => {
